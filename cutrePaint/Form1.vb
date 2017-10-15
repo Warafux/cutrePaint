@@ -3,12 +3,17 @@
     Private point2 As Point = New Point(0, 0)
     Private isClicking As Boolean = False
     Private mouseButton As MouseButtons
+    Private isCtrlPressed As Boolean = False
+    Private isAltPressed As Boolean = False
+
+    Private drawings As ArrayList = New ArrayList()
+
     Private cnt_graphics As Graphics
     Private tmp_graphics As Graphics
     Private backgroundColor As Color = Color.White
 
     Private Sub Form1_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Me.KeyPress
-        'Evaluates input as
+        'Evaluates input as uppercase because Keys.I is treated as uppercase (wtf?)
         Select Case (e.KeyChar.ToString.ToUpper.Chars(0))
             Case Microsoft.VisualBasic.ChrW(Keys.Return), Microsoft.VisualBasic.ChrW(Keys.I), Microsoft.VisualBasic.ChrW(Keys.L)
                 'Keys.Return = ENTER
@@ -26,7 +31,9 @@
     End Sub
 
     Private Sub Form1_Paint(sender As Object, e As PaintEventArgs) Handles MyBase.Paint
-
+        If isAltPressed Then
+            e.Graphics.DrawString("ALT", New System.Drawing.Font("Times", 25, FontStyle.Bold), Brushes.Chocolate, 10, 10)
+        End If
     End Sub
 
     Private Sub Form1_MouseDown(sender As Object, e As MouseEventArgs) Handles MyBase.MouseDown
@@ -54,8 +61,14 @@
             'Me.Text = "Line:" + point1.ToString + " TO " + point2.ToString
             Me.Text = "Línia de " + point1.ToString + " fins a " + point2.ToString + " amb click " + e.Button.ToString
             isClicking = False
-
-            cnt_graphics.DrawLine(New Pen(Color.Black), point1, point2)
+            Select Case (getDrawMode())
+                Case "l"
+                    cnt_graphics.DrawLine(New Pen(Color.Black), point1, point2)
+                Case "c"
+                    cnt_graphics.DrawEllipse(New Pen(Color.Blue), point1.X, point1.Y, point2.X - point1.X, point2.Y - point1.Y)
+                Case "r"
+                    cnt_graphics.DrawRectangle(New Pen(Color.Red), point1.X, point1.Y, point2.X - point1.X, point2.Y - point1.Y)
+            End Select
         End If
 
 
@@ -70,6 +83,15 @@
 
         Return invertedString
     End Function
+    Private Function getDrawMode()
+        If isAltPressed And (Not isCtrlPressed) Then
+            Return "c"
+        ElseIf (Not isAltPressed) And isCtrlPressed Then
+            Return "r"
+        Else
+            Return "l"
+        End If
+    End Function
 
     Private Sub Form1_Resize(sender As Object, e As EventArgs) Handles MyBase.Resize
         Me.Text = "Nou tamany: " + Me.Width.ToString + " x " + Me.Height.ToString
@@ -83,5 +105,17 @@
 
     Private Sub Form1_MouseMove(sender As Object, e As MouseEventArgs) Handles MyBase.MouseMove
 
+    End Sub
+
+    Private Sub Form1_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
+        isAltPressed = e.Alt
+        isCtrlPressed = e.Control
+        Me.Refresh()
+    End Sub
+
+    Private Sub Form1_KeyUp(sender As Object, e As KeyEventArgs) Handles MyBase.KeyUp
+        isAltPressed = e.Alt
+        isCtrlPressed = e.Control
+        Me.Refresh()
     End Sub
 End Class
