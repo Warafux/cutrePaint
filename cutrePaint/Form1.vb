@@ -34,6 +34,10 @@
         If isAltPressed Then
             e.Graphics.DrawString("ALT", New System.Drawing.Font("Times", 25, FontStyle.Bold), Brushes.Chocolate, 10, 10)
         End If
+        For Each drawing In drawings
+            drawing.draw(e)
+        Next
+
     End Sub
 
     Private Sub Form1_MouseDown(sender As Object, e As MouseEventArgs) Handles MyBase.MouseDown
@@ -63,15 +67,18 @@
             isClicking = False
             Select Case (getDrawMode())
                 Case "l"
-                    cnt_graphics.DrawLine(New Pen(Color.Black), point1, point2)
+                    'cnt_graphics.DrawLine(New Pen(Color.Black), point1, point2)
+                    drawings.Add(New line("linea1", point1, point2, Color.Black))
                 Case "c"
-                    cnt_graphics.DrawEllipse(New Pen(Color.Blue), point1.X, point1.Y, point2.X - point1.X, point2.Y - point1.Y)
+                    drawings.Add(New rectangle("linea1", point1, point2, Color.Black))
+                    'cnt_graphics.DrawEllipse(New Pen(Color.Blue), point1.X, point1.Y, point2.X - point1.X, point2.Y - point1.Y)
                 Case "r"
-                    cnt_graphics.DrawRectangle(New Pen(Color.Red), point1.X, point1.Y, point2.X - point1.X, point2.Y - point1.Y)
+                    drawings.Add(New circle("linea1", point1, point2, Color.Black))
+                    'cnt_graphics.DrawRectangle(New Pen(Color.Red), point1.X, point1.Y, point2.X - point1.X, point2.Y - point1.Y)
             End Select
         End If
 
-
+        Me.Refresh()
     End Sub
 
     Private Function invertString(str As String)
@@ -104,18 +111,16 @@
     End Sub
 
     Private Sub Form1_MouseMove(sender As Object, e As MouseEventArgs) Handles MyBase.MouseMove
-
+        Console.WriteLine(drawings.Count)
     End Sub
 
     Private Sub Form1_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
         isAltPressed = e.Alt
         isCtrlPressed = e.Control
-        Me.Refresh()
     End Sub
 
     Private Sub Form1_KeyUp(sender As Object, e As KeyEventArgs) Handles MyBase.KeyUp
         isAltPressed = e.Alt
         isCtrlPressed = e.Control
-        Me.Refresh()
     End Sub
 End Class

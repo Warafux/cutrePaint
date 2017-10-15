@@ -72,6 +72,10 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="circle.vb" />
+    <Compile Include="rectangle.vb" />
+    <Compile Include="line.vb" />
+    <Compile Include="drawing.vb" />
     <Compile Include="Form1.vb">
       <SubType>Form</SubType>
     </Compile>
