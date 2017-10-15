@@ -8,8 +8,9 @@
     Private backgroundColor As Color = Color.White
 
     Private Sub Form1_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Me.KeyPress
-        Select Case e.KeyChar
-            Case Microsoft.VisualBasic.ChrW(Keys.Return)
+        'Evaluates input as
+        Select Case (e.KeyChar.ToString.ToUpper.Chars(0))
+            Case Microsoft.VisualBasic.ChrW(Keys.Return), Microsoft.VisualBasic.ChrW(Keys.I), Microsoft.VisualBasic.ChrW(Keys.L)
                 'Keys.Return = ENTER
                 Me.Text = invertString(Me.Text)
             Case Microsoft.VisualBasic.ChrW(Keys.Escape)
@@ -37,9 +38,15 @@
         point1 = e.Location
         isClicking = True
         mouseButton = e.Button
-        tmp_graphics = CreateGraphics()
-    End Sub
 
+    End Sub
+    Private Sub Form1_DoubleClick(sender As Object, e As EventArgs) Handles MyBase.DoubleClick
+        If Me.WindowState = FormWindowState.Maximized Then
+            Me.WindowState = FormWindowState.Normal
+        ElseIf Me.WindowState = FormWindowState.Normal Then
+            Me.WindowState = FormWindowState.Maximized
+        End If
+    End Sub
     Private Sub Form1_MouseUp(sender As Object, e As MouseEventArgs) Handles MyBase.MouseUp
         If (isClicking And mouseButton.ToString.Equals(e.Button.ToString)) Then
             'If is clicking and the first button clicked is the same as the clicked at this event (e)
@@ -47,10 +54,6 @@
             'Me.Text = "Line:" + point1.ToString + " TO " + point2.ToString
             Me.Text = "Línia de " + point1.ToString + " fins a " + point2.ToString + " amb click " + e.Button.ToString
             isClicking = False
-
-            'reset graphics
-            tmp_graphics.Dispose()
-            tmp_graphics = CreateGraphics()
 
             cnt_graphics.DrawLine(New Pen(Color.Black), point1, point2)
         End If
@@ -70,6 +73,7 @@
 
     Private Sub Form1_Resize(sender As Object, e As EventArgs) Handles MyBase.Resize
         Me.Text = "Nou tamany: " + Me.Width.ToString + " x " + Me.Height.ToString
+
     End Sub
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -78,11 +82,6 @@
     End Sub
 
     Private Sub Form1_MouseMove(sender As Object, e As MouseEventArgs) Handles MyBase.MouseMove
-        If (isClicking) Then
-            tmp_graphics.Clear(backgroundColor)
 
-            tmp_graphics.DrawLine(New Pen(Color.Black), point1, e.Location)
-
-        End If
     End Sub
 End Class
