@@ -8,8 +8,11 @@
 
     Private drawings As ArrayList = New ArrayList()
 
+    Private menu As menu = My.Forms.menu
+
     Private cnt_graphics As Graphics
-    Private tmp_graphics As Graphics
+    Private tmp_drawing As drawing
+
     Private backgroundColor As Color = Color.White
 
     Private Sub Form1_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Me.KeyPress
@@ -49,7 +52,15 @@
         point1 = e.Location
         isClicking = True
         mouseButton = e.Button
-
+        Select Case (getDrawMode())
+            Case "l"
+                tmp_drawing = New line("TMP LINE", point1, point1, Color.Black)
+            Case "c"
+                tmp_drawing = New rectangle("TMP RECTANGLE", point1, point1, Color.Black)
+            Case "r"
+                tmp_drawing = New circle("TMP CIRCLE", point1, point1, Color.Black)
+        End Select
+        drawings.Add(tmp_drawing)
     End Sub
     Private Sub Form1_DoubleClick(sender As Object, e As EventArgs) Handles MyBase.DoubleClick
         If Me.WindowState = FormWindowState.Maximized Then
@@ -77,8 +88,7 @@
                     'cnt_graphics.DrawRectangle(New Pen(Color.Red), point1.X, point1.Y, point2.X - point1.X, point2.Y - point1.Y)
             End Select
         End If
-
-        Me.Refresh()
+        updateAll()
     End Sub
 
     Private Function invertString(str As String)
@@ -108,10 +118,14 @@
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         cnt_graphics = CreateGraphics()
         cnt_graphics.Clear(backgroundColor)
+        My.Forms.menu.Show()
     End Sub
 
     Private Sub Form1_MouseMove(sender As Object, e As MouseEventArgs) Handles MyBase.MouseMove
-        Console.WriteLine(drawings.Count)
+        If isClicking Then
+            tmp_drawing.setEndPoint(e.Location)
+            updateAll()
+        End If
     End Sub
 
     Private Sub Form1_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
@@ -122,5 +136,13 @@
     Private Sub Form1_KeyUp(sender As Object, e As KeyEventArgs) Handles MyBase.KeyUp
         isAltPressed = e.Alt
         isCtrlPressed = e.Control
+    End Sub
+
+    Private Sub updateAll()
+        'refresh paint screen
+        Me.Refresh()
+
+        'update menu drawings list
+        menu.updateList(drawings)
     End Sub
 End Class
