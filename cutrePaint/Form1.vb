@@ -9,7 +9,6 @@
 
     Private menu As menu = My.Forms.menu
 
-    Private cnt_graphics As Graphics
     Private tmp_drawing As drawing
 
     Private backgroundColor As Color = Color.White
@@ -36,9 +35,12 @@
         If isAltPressed Then
             e.Graphics.DrawString("ALT", New System.Drawing.Font("Times", 25, FontStyle.Bold), Brushes.Chocolate, 10, 10)
         End If
+        'drawings
         For Each drawing In drawings
             drawing.draw(e)
         Next
+        'tmp_drawing
+        tmp_drawing.draw(e)
     End Sub
 
     Private Sub Form1_MouseDown(sender As Object, e As MouseEventArgs) Handles MyBase.MouseDown
@@ -58,7 +60,7 @@
             Case "r"
                 tmp_drawing = New circle("TMP CIRCLE", point1, point1, Color.Black)
         End Select
-        drawings.Add(tmp_drawing)
+
     End Sub
     Private Sub Form1_DoubleClick(sender As Object, e As EventArgs) Handles MyBase.DoubleClick
         If Me.WindowState = FormWindowState.Maximized Then
@@ -114,8 +116,8 @@
     End Sub
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        cnt_graphics = CreateGraphics()
-        cnt_graphics.Clear(backgroundColor)
+        tmp_drawing = New drawing()
+        'open menu form
         My.Forms.menu.Show()
     End Sub
 

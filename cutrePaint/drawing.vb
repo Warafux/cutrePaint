@@ -7,6 +7,9 @@
     Protected visible As Boolean = True
     Protected pen As Pen = New Pen(Color.Black)
 
+    Public Sub New()
+        'Empty drawing
+    End Sub
     Public Sub New(name As String, startPoint As Point, endPoint As Point, color As Color, visible As Boolean)
         Me.name = name
         Me.startPoint = startPoint
