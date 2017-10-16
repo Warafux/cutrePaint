@@ -63,4 +63,8 @@
     Private Sub NumericUpDown1_ValueChanged(sender As Object, e As EventArgs) Handles numericUpDown_chosenWidth.ValueChanged
         chosenWidth = numericUpDown_chosenWidth.Value
     End Sub
+
+    Private Sub Label5_Click(sender As Object, e As EventArgs) Handles Label5.Click
+        Process.Start("https://alexparedes.ovh/")
+    End Sub
 End Class

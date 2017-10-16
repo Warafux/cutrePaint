@@ -32,7 +32,7 @@ Namespace My
         
         <Global.System.Diagnostics.DebuggerStepThroughAttribute()>  _
         Protected Overrides Sub OnCreateMainForm()
-            Me.MainForm = Global.interficies.drawForm
+            Me.MainForm = Global.CutrePaint.drawForm
         End Sub
     End Class
 End Namespace

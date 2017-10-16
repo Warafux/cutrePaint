@@ -6,13 +6,28 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{AC9E09B0-77A8-4071-8AA8-DCE19CAE910B}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <StartupObject>interficies.My.MyApplication</StartupObject>
-    <RootNamespace>interficies</RootNamespace>
-    <AssemblyName>interficies</AssemblyName>
+    <StartupObject>CutrePaint.My.MyApplication</StartupObject>
+    <RootNamespace>CutrePaint</RootNamespace>
+    <AssemblyName>CutrePaint</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>WindowsForms</MyType>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -21,7 +36,7 @@
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <OutputPath>bin\Debug\</OutputPath>
-    <DocumentationFile>interficies.xml</DocumentationFile>
+    <DocumentationFile>CutrePaint.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -31,7 +46,7 @@
     <DefineTrace>true</DefineTrace>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DocumentationFile>interficies.xml</DocumentationFile>
+    <DocumentationFile>CutrePaint.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup>
@@ -45,6 +60,12 @@
   </PropertyGroup>
   <PropertyGroup>
     <OptionInfer>On</OptionInfer>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>cutrepainticono.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>false</SignManifests>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -72,20 +93,20 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="circle.vb" />
-    <Compile Include="menu.Designer.vb">
+    <Compile Include="drawings\circle.vb" />
+    <Compile Include="forms\menu.Designer.vb">
       <DependentUpon>menu.vb</DependentUpon>
     </Compile>
-    <Compile Include="menu.vb">
+    <Compile Include="forms\menu.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="rectangle.vb" />
-    <Compile Include="line.vb" />
+    <Compile Include="drawings\rectangle.vb" />
+    <Compile Include="drawings\line.vb" />
     <Compile Include="drawing.vb" />
-    <Compile Include="drawForm.vb">
+    <Compile Include="forms\drawForm.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="drawForm.Designer.vb">
+    <Compile Include="forms\drawForm.Designer.vb">
       <DependentUpon>drawForm.vb</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
@@ -106,10 +127,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="drawForm.resx">
+    <EmbeddedResource Include="forms\drawForm.resx">
       <DependentUpon>drawForm.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="menu.resx">
+    <EmbeddedResource Include="forms\menu.resx">
       <DependentUpon>menu.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
@@ -130,6 +151,21 @@
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="cutrepainticono.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.6.1 %28x86 y x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>
