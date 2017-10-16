@@ -1,8 +1,8 @@
 ﻿Public Class rectangle
     Inherits drawing
 
-    Public Sub New(name As String, startPoint As Point, endPoint As Point, color As Color)
-        MyBase.New(name, startPoint, endPoint, color, True)
+    Public Sub New(name As String, startPoint As Point, endPoint As Point, color As Color, visible As Boolean, width As Integer)
+        MyBase.New(name, startPoint, endPoint, color, visible, width)
 
         If ((Me.endPoint.X - Me.startPoint.X) < 0 Or (Me.endPoint.Y - Me.startPoint.Y) < 0) Then
             'Problem when startPoint and endPoint are not as desired (top-left corner and bottom-right corner)
@@ -25,6 +25,6 @@
 
         Dim graphics = paintEvent.Graphics
 
-        graphics.DrawRectangle(New Pen(Me.color), Me.startPoint.X, Me.startPoint.Y, Me.endPoint.X - Me.startPoint.X, Me.endPoint.Y - Me.startPoint.Y)
+        graphics.DrawRectangle(New Pen(Me.color, Me.width), Me.startPoint.X, Me.startPoint.Y, Me.endPoint.X - Me.startPoint.X, Me.endPoint.Y - Me.startPoint.Y)
     End Sub
 End Class

@@ -60,11 +60,11 @@
         mouseButton = e.Button
         Select Case (getDrawMode())
             Case "l"
-                tmp_drawing = New line("TMP LINE", point1, point1, menu.getChosenColor)
+                tmp_drawing = New line("TMP LINE", point1, point1, menu.getChosenColor, True, menu.getChosenWidth)
             Case "c"
-                tmp_drawing = New rectangle("TMP RECTANGLE", point1, point1, menu.getChosenColor)
+                tmp_drawing = New rectangle("TMP RECTANGLE", point1, point1, menu.getChosenColor, True, menu.getChosenWidth)
             Case "r"
-                tmp_drawing = New circle("TMP CIRCLE", point1, point1, menu.getChosenColor)
+                tmp_drawing = New circle("TMP CIRCLE", point1, point1, menu.getChosenColor, True, menu.getChosenWidth)
         End Select
 
     End Sub
@@ -89,13 +89,13 @@
             isClicking = False
             Select Case (getDrawMode())
                 Case "l"
-                    drawings.Add(New line("LINE " + counter_lines.ToString, point1, point2, menu.getChosenColor))
+                    drawings.Add(New line("LINE " + counter_lines.ToString, point1, point2, menu.getChosenColor, True, menu.getChosenWidth))
                     counter_lines = counter_lines + 1
                 Case "c"
-                    drawings.Add(New rectangle("RECTANGLE " + counter_rectangles.ToString, point1, point2, menu.getChosenColor))
+                    drawings.Add(New rectangle("RECTANGLE " + counter_rectangles.ToString, point1, point2, menu.getChosenColor, True, menu.getChosenWidth))
                     counter_rectangles = counter_rectangles + 1
                 Case "r"
-                    drawings.Add(New circle("CIRCLE " + counter_circles.ToString, point1, point2, menu.getChosenColor))
+                    drawings.Add(New circle("CIRCLE " + counter_circles.ToString, point1, point2, menu.getChosenColor, True, menu.getChosenWidth))
                     counter_circles = counter_circles + 1
             End Select
         End If
@@ -142,13 +142,11 @@
     Private Sub Form1_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
         isAltPressed = e.Alt
         isCtrlPressed = e.Control
-        updateAll()
     End Sub
 
     Private Sub Form1_KeyUp(sender As Object, e As KeyEventArgs) Handles MyBase.KeyUp
         isAltPressed = e.Alt
         isCtrlPressed = e.Control
-        updateAll()
     End Sub
 
     Private Sub updateAll()

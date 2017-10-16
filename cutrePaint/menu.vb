@@ -1,6 +1,7 @@
 ﻿Public Class menu
     Private drawForm As drawForm
     Private chosenColor As Color = Color.Black
+    Private chosenWidth As Integer = 1
     Private Sub menu_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         drawForm = My.Forms.drawForm
     End Sub
@@ -38,6 +39,11 @@
         Return Me.chosenColor
     End Function
 
+    Public Function getChosenWidth()
+        Return Me.chosenWidth
+    End Function
+
+
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles button_colorRed.Click
         chosenColor = DirectCast(sender, Button).BackColor
     End Sub
@@ -52,5 +58,9 @@
 
     Private Sub button_colorBlack_Click(sender As Object, e As EventArgs) Handles button_colorBlack.Click
         chosenColor = DirectCast(sender, Button).BackColor
+    End Sub
+
+    Private Sub NumericUpDown1_ValueChanged(sender As Object, e As EventArgs) Handles numericUpDown_chosenWidth.ValueChanged
+        chosenWidth = numericUpDown_chosenWidth.Value
     End Sub
 End Class

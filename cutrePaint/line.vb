@@ -1,8 +1,8 @@
 ﻿Public Class line
     Inherits drawing
 
-    Public Sub New(name As String, startPoint As Point, endPoint As Point, color As Color)
-        MyBase.New(name, startPoint, endPoint, color, True)
+    Public Sub New(name As String, startPoint As Point, endPoint As Point, color As Color, visible As Boolean, width As Integer)
+        MyBase.New(name, startPoint, endPoint, color, visible, width)
 
     End Sub
     Public Overrides Sub draw(paintEvent As PaintEventArgs)
@@ -11,6 +11,6 @@
         End If
 
         Dim graphics = paintEvent.Graphics
-        graphics.DrawLine(New Pen(Me.color), Me.startPoint, Me.endPoint)
+        graphics.DrawLine(New Pen(Me.color, Me.width), Me.startPoint, Me.endPoint)
     End Sub
 End Class
