@@ -5,7 +5,6 @@
     Protected color As Color
     Protected shape As String
     Protected visible As Boolean = True
-    Protected pen As Pen = New Pen(Color.Black)
 
     Public Sub New()
         'Empty drawing

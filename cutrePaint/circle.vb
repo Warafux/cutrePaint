@@ -12,6 +12,6 @@
 
         Dim graphics = paintEvent.Graphics
 
-        graphics.DrawEllipse(Me.pen, Me.startPoint.X, Me.startPoint.Y, Me.endPoint.X - Me.startPoint.X, Me.endPoint.Y - Me.startPoint.Y)
+        graphics.DrawEllipse(New Pen(Me.color), Me.startPoint.X, Me.startPoint.Y, Me.endPoint.X - Me.startPoint.X, Me.endPoint.Y - Me.startPoint.Y)
     End Sub
 End Class

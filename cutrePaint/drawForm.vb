@@ -1,4 +1,4 @@
-﻿Public Class Form1
+﻿Public Class drawForm
     Private point1 As Point = New Point(0, 0)
     Private point2 As Point = New Point(0, 0)
     Private isClicking As Boolean = False
@@ -12,6 +12,11 @@
     Private tmp_drawing As drawing
 
     Private backgroundColor As Color = Color.White
+    Private highQuality As Boolean = False
+
+    Private counter_lines As Integer = 0
+    Private counter_rectangles As Integer = 0
+    Private counter_circles As Integer = 0
 
     Private Sub Form1_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Me.KeyPress
         'Evaluates input as uppercase because Keys.I is treated as uppercase (wtf?)
@@ -32,15 +37,16 @@
     End Sub
 
     Private Sub Form1_Paint(sender As Object, e As PaintEventArgs) Handles MyBase.Paint
-        If isAltPressed Then
-            e.Graphics.DrawString("ALT", New System.Drawing.Font("Times", 25, FontStyle.Bold), Brushes.Chocolate, 10, 10)
-        End If
+        e.Graphics.SmoothingMode = If(highQuality, Drawing2D.SmoothingMode.HighQuality, Drawing2D.SmoothingMode.Default)
         'drawings
         For Each drawing In drawings
             drawing.draw(e)
         Next
         'tmp_drawing
-        tmp_drawing.draw(e)
+        If isClicking Then
+            tmp_drawing.draw(e)
+        End If
+
     End Sub
 
     Private Sub Form1_MouseDown(sender As Object, e As MouseEventArgs) Handles MyBase.MouseDown
@@ -54,19 +60,24 @@
         mouseButton = e.Button
         Select Case (getDrawMode())
             Case "l"
-                tmp_drawing = New line("TMP LINE", point1, point1, Color.Black)
+                tmp_drawing = New line("TMP LINE", point1, point1, menu.getChosenColor)
             Case "c"
-                tmp_drawing = New rectangle("TMP RECTANGLE", point1, point1, Color.Black)
+                tmp_drawing = New rectangle("TMP RECTANGLE", point1, point1, menu.getChosenColor)
             Case "r"
-                tmp_drawing = New circle("TMP CIRCLE", point1, point1, Color.Black)
+                tmp_drawing = New circle("TMP CIRCLE", point1, point1, menu.getChosenColor)
         End Select
 
     End Sub
     Private Sub Form1_DoubleClick(sender As Object, e As EventArgs) Handles MyBase.DoubleClick
         If Me.WindowState = FormWindowState.Maximized Then
             Me.WindowState = FormWindowState.Normal
+            menu.WindowState = FormWindowState.Normal
         ElseIf Me.WindowState = FormWindowState.Normal Then
             Me.WindowState = FormWindowState.Maximized
+            menu.WindowState = FormWindowState.Normal
+        ElseIf Me.WindowState = FormWindowState.Minimized Then
+            'Minimize the menu
+            menu.WindowState = FormWindowState.Minimized
         End If
     End Sub
     Private Sub Form1_MouseUp(sender As Object, e As MouseEventArgs) Handles MyBase.MouseUp
@@ -78,14 +89,14 @@
             isClicking = False
             Select Case (getDrawMode())
                 Case "l"
-                    'cnt_graphics.DrawLine(New Pen(Color.Black), point1, point2)
-                    drawings.Add(New line("linea1", point1, point2, Color.Black))
+                    drawings.Add(New line("LINE " + counter_lines.ToString, point1, point2, menu.getChosenColor))
+                    counter_lines = counter_lines + 1
                 Case "c"
-                    drawings.Add(New rectangle("linea1", point1, point2, Color.Black))
-                    'cnt_graphics.DrawEllipse(New Pen(Color.Blue), point1.X, point1.Y, point2.X - point1.X, point2.Y - point1.Y)
+                    drawings.Add(New rectangle("RECTANGLE " + counter_rectangles.ToString, point1, point2, menu.getChosenColor))
+                    counter_rectangles = counter_rectangles + 1
                 Case "r"
-                    drawings.Add(New circle("linea1", point1, point2, Color.Black))
-                    'cnt_graphics.DrawRectangle(New Pen(Color.Red), point1.X, point1.Y, point2.X - point1.X, point2.Y - point1.Y)
+                    drawings.Add(New circle("CIRCLE " + counter_circles.ToString, point1, point2, menu.getChosenColor))
+                    counter_circles = counter_circles + 1
             End Select
         End If
         updateAll()
@@ -131,18 +142,36 @@
     Private Sub Form1_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
         isAltPressed = e.Alt
         isCtrlPressed = e.Control
+        updateAll()
     End Sub
 
     Private Sub Form1_KeyUp(sender As Object, e As KeyEventArgs) Handles MyBase.KeyUp
         isAltPressed = e.Alt
         isCtrlPressed = e.Control
+        updateAll()
     End Sub
 
     Private Sub updateAll()
         'refresh paint screen
         Me.Refresh()
 
-        'update menu drawings list
-        menu.updateList(drawings)
+        If Not isClicking Then
+            'update menu drawings list only when user finishes clicking
+            menu.updateList(drawings)
+        End If
+
+    End Sub
+    Public Sub eraseDrawing(index As Integer)
+        Try
+            drawings.RemoveAt(index)
+        Catch ex As Exception
+            Console.WriteLine(ex)
+        End Try
+
+        updateAll()
+    End Sub
+    Public Sub eraseAllDrawings()
+        drawings.Clear()
+        updateAll()
     End Sub
 End Class

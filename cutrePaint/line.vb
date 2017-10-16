@@ -11,7 +11,6 @@
         End If
 
         Dim graphics = paintEvent.Graphics
-        Console.WriteLine("Drawing " + Me.name)
-        graphics.DrawLine(Me.pen, Me.startPoint, Me.endPoint)
+        graphics.DrawLine(New Pen(Me.color), Me.startPoint, Me.endPoint)
     End Sub
 End Class
