@@ -17,6 +17,10 @@
     End Sub
     Public Sub draw(paintEvent As PaintEventArgs)
     End Sub
-
-
+    Public Function getName()
+        Return Me.name
+    End Function
+    Public Sub setEndPoint(endPoint As Point)
+        Me.endPoint = endPoint
+    End Sub
 End Class
