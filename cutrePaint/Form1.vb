@@ -5,8 +5,7 @@
     Private mouseButton As MouseButtons
     Private isCtrlPressed As Boolean = False
     Private isAltPressed As Boolean = False
-
-    Private drawings As ArrayList = New ArrayList()
+    Private drawings As List(Of drawing) = New List(Of drawing)
 
     Private menu As menu = My.Forms.menu
 
@@ -40,7 +39,6 @@
         For Each drawing In drawings
             drawing.draw(e)
         Next
-
     End Sub
 
     Private Sub Form1_MouseDown(sender As Object, e As MouseEventArgs) Handles MyBase.MouseDown

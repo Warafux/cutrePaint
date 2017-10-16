@@ -4,7 +4,7 @@
         drawForm = My.Forms.Form1
     End Sub
 
-    Public Sub updateList(drawings As ArrayList)
+    Public Sub updateList(drawings As List(Of drawing))
         listView_drawings.Items.Clear()
         listView_drawings.Clear()
 

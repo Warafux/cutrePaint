@@ -15,7 +15,8 @@
         Me.visible = visible
 
     End Sub
-    Public Sub draw(paintEvent As PaintEventArgs)
+    Public Overridable Sub draw(paintEvent As PaintEventArgs)
+
     End Sub
     Public Function getName()
         Return Me.name

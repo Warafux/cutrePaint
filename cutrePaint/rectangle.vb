@@ -18,7 +18,7 @@
 
         End If
     End Sub
-    Public Overloads Sub draw(paintEvent As PaintEventArgs)
+    Public Overrides Sub draw(paintEvent As PaintEventArgs)
         If Not Me.visible Then
             Return
         End If
