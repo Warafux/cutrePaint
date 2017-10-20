@@ -34,7 +34,7 @@ Partial Class drawForm
         Me.Name = "drawForm"
         Me.ShowIcon = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "CutrePaint Dibujo"
+        Me.Text = "CutrePaint DrawPanel"
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         Me.ResumeLayout(False)
 
