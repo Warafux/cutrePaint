@@ -160,6 +160,7 @@ Partial Class menu
         'Label5
         '
         Me.Label5.AutoSize = True
+        Me.Label5.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Label5.Location = New System.Drawing.Point(12, 721)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(86, 13)
